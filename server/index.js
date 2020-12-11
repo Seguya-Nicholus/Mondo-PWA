@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const bodyParser = require("body-parser");
 
 // create express app
@@ -9,6 +10,17 @@ const app = express();
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// Set view Engines
+app.set("view engine", "ejs");
+app.set("view engine", "pug");
+
+// Specify where the engine is to pick views 
+let joinedPath = path.join(__dirname, "views");
+app.set('views', joinedPath);
+
+// Serve Static Files
+app.use(express.static(path.join(__dirname, 'public')))
 
 // database
 const CONNECTION_URL =
